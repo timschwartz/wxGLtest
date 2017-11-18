@@ -7,6 +7,8 @@ class testGLCanvas: public wxGLCanvas
 {
   public:
     testGLCanvas(wxFrame *parent, const wxGLAttributes &dispAttrs);
+    wxFrame *parent;
+    wxGLContext *createContext();
     ~testGLCanvas();
   protected:
 //    DECLARE_EVENT_TABLE()

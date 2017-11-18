@@ -5,18 +5,22 @@
 testGLCanvas::testGLCanvas(wxFrame *parent, const wxGLAttributes &dispAttrs)
              :wxGLCanvas(parent, dispAttrs, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxT("GLCanvas"), wxNullPalette)
 {
-    MainWindow *f = (MainWindow *)parent;
+}
 
+wxGLContext *testGLCanvas::createContext()
+{
     wxGLContextAttrs ctxAttrs;
     ctxAttrs.PlatformDefaults().CoreProfile().OGLVersion(3, 2).EndList();
 
-    f->glc = new wxGLContext(this, NULL, &ctxAttrs);
+    wxGLContext *glc = new wxGLContext(this, NULL, &ctxAttrs);
 
-    if(!f->glc->IsOK())
+    if(!glc->IsOK())
     {
         std::cout << "GLContext wrong" << std::endl;
     }
     else std::cout << "GLContext ok" << std::endl;
+
+    return glc;
 }
 
 testGLCanvas::~testGLCanvas()

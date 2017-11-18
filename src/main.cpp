@@ -16,6 +16,7 @@ bool wxGLtest::OnInit()
     XInitThreads();
     this->frame = new MainWindow("wxWidgets / OpenGL test", wxPoint(20, 20), wxSize(1285, 810));
 
+    this->frame->glc = this->frame->canvas->createContext();
     return true;
 }
 
