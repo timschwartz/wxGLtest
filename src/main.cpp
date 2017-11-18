@@ -13,6 +13,7 @@ wxGLtest::wxGLtest()
 
 bool wxGLtest::OnInit()
 {
+    XInitThreads();
     this->frame = new MainWindow("wxWidgets / OpenGL test", wxPoint(20, 20), wxSize(1285, 810));
 
     return true;
@@ -39,7 +40,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     this->Show(true);
 
     wxGLAttributes dispAttrs;
-    dispAttrs.PlatformDefaults().Defaults().EndList();
+    dispAttrs.PlatformDefaults().RGBA().DoubleBuffer().Depth(16).EndList();
 
     if(wxGLCanvas::IsDisplaySupported(dispAttrs)) std::cout << "Display supported" << std::endl;
     else std::cout << "Display not supported" << std::endl;
