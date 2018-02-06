@@ -103,7 +103,7 @@ am_wxGLtest_OBJECTS = wxGLtest-main.$(OBJEXT) \
 	wxGLtest-testGLCanvas.$(OBJEXT)
 wxGLtest_OBJECTS = $(am_wxGLtest_OBJECTS)
 am__DEPENDENCIES_1 =
-wxGLtest_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+wxGLtest_DEPENDENCIES = $(am__DEPENDENCIES_1)
 wxGLtest_LINK = $(CXXLD) $(wxGLtest_CXXFLAGS) $(CXXFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
@@ -227,8 +227,6 @@ WX_VERSION = @WX_VERSION@
 WX_VERSION_MAJOR = @WX_VERSION_MAJOR@
 WX_VERSION_MICRO = @WX_VERSION_MICRO@
 WX_VERSION_MINOR = @WX_VERSION_MINOR@
-X11_CFLAGS = @X11_CFLAGS@
-X11_LIBS = @X11_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -272,8 +270,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-wxGLtest_CXXFLAGS = -std=c++11 -Wall -Werror $(GLEW_CFLAGS) $(X11_CFLAGS)
-wxGLtest_LDADD = -lpthread $(GLEW_LIBS) $(X11_LIBS)
+wxGLtest_CXXFLAGS = -std=c++11 -Wall -Werror $(GLEW_CFLAGS) 
+wxGLtest_LDADD = -lpthread $(GLEW_LIBS)
 wxGLtest_SOURCES = main.cpp testGLCanvas.cpp
 all: all-am
 

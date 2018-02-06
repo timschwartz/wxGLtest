@@ -1,8 +1,12 @@
 src/wxGLtest
+*.exe
+/autom4te.cache
 src/.deps
 *.o
 /Makefile
 src/Makefile
+/config.h
 /config.log
 /config.status
 stamp-h1
+/*.m4
