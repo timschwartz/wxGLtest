@@ -14,6 +14,7 @@ class MainWindow: public wxFrame
     wxGLContext *glc = nullptr;
   private:
     void OnExit(wxCommandEvent &event);
+    void OnGL(wxCommandEvent &event);
     wxDECLARE_EVENT_TABLE();
 };
 
@@ -25,3 +26,7 @@ class wxGLtest: public wxApp
     MainWindow *frame = nullptr;
 };
 
+enum
+{
+    ID_opengl = 0
+};

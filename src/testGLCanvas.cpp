@@ -10,7 +10,7 @@ testGLCanvas::testGLCanvas(wxFrame *parent, const wxGLAttributes &dispAttrs)
 wxGLContext *testGLCanvas::createContext()
 {
     wxGLContextAttrs ctxAttrs;
-    ctxAttrs.PlatformDefaults().CoreProfile().OGLVersion(3, 2).EndList();
+    ctxAttrs.PlatformDefaults().CoreProfile().OGLVersion(4, 5).EndList();
 
     wxGLContext *glc = new wxGLContext(this, NULL, &ctxAttrs);
 

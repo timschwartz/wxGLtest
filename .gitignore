@@ -1,2 +1,5 @@
 src/wxGLtest
+src/.deps
 *.o
+/Makefile
+src/Makefile

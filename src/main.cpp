@@ -2,6 +2,7 @@
 
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
+    EVT_MENU(ID_opengl, MainWindow::OnGL)
 wxEND_EVENT_TABLE()
 
 wxIMPLEMENT_APP(wxGLtest);
@@ -20,6 +21,19 @@ bool wxGLtest::OnInit()
     return true;
 }
 
+void MainWindow::OnGL(wxCommandEvent &event)
+{
+    this->glc = this->canvas->createContext();
+    this->canvas->SetCurrent(*glc);
+
+    glewExperimental = true; // Needed in core profile
+    GLenum err = glewInit();
+    if(err != GLEW_OK)
+    {
+        std::cout << "Failed to initialize GLEW: " << glewGetErrorString(err) << std::endl;
+    }
+}
+
 void MainWindow::OnExit(wxCommandEvent& event)
 {
     Close(true);
@@ -32,6 +46,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(wxID_EXIT);
+    menuFile->Append(ID_opengl, "&OpenGL init...\tCtrl-H", "");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
