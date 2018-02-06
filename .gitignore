@@ -3,3 +3,6 @@ src/.deps
 *.o
 /Makefile
 src/Makefile
+/config.log
+/config.status
+stamp-h1

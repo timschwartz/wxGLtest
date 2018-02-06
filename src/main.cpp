@@ -2,36 +2,38 @@
 
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
-    EVT_MENU(ID_opengl, MainWindow::OnGL)
+    EVT_SHOW(MainWindow::setupGL)
 wxEND_EVENT_TABLE()
 
 wxIMPLEMENT_APP(wxGLtest);
 
-wxGLtest::wxGLtest()
+void MainWindow::setupGL(wxShowEvent &event)
 {
-    XInitThreads();
-}
+    wxGLAttributes dispAttrs;
+    dispAttrs.PlatformDefaults().RGBA().DoubleBuffer().Depth(16).EndList();
 
-bool wxGLtest::OnInit()
-{
-    XInitThreads();
-    this->frame = new MainWindow("wxWidgets / OpenGL test", wxPoint(20, 20), wxSize(1285, 810));
+    if(wxGLCanvas::IsDisplaySupported(dispAttrs)) std::cout << "Display supported" << std::endl;
+    else std::cout << "Display not supported" << std::endl;
 
-    this->frame->glc = this->frame->canvas->createContext();
-    return true;
-}
-
-void MainWindow::OnGL(wxCommandEvent &event)
-{
+    this->canvas = new testGLCanvas(this, dispAttrs);
     this->glc = this->canvas->createContext();
-    this->canvas->SetCurrent(*glc);
+    this->canvas->SetCurrent(*this->glc);
 
     glewExperimental = true; // Needed in core profile
     GLenum err = glewInit();
     if(err != GLEW_OK)
     {
         std::cout << "Failed to initialize GLEW: " << glewGetErrorString(err) << std::endl;
+        return;
     }
+    std::cout << "GLEW initialized." << std::endl;
+}
+
+bool wxGLtest::OnInit()
+{
+    this->frame = new MainWindow("wxWidgets / OpenGL test", wxPoint(20, 20), wxSize(1285, 810));
+    
+    return true;
 }
 
 void MainWindow::OnExit(wxCommandEvent& event)
@@ -46,7 +48,6 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(wxID_EXIT);
-    menuFile->Append(ID_opengl, "&OpenGL init...\tCtrl-H", "");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
@@ -54,12 +55,4 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     CreateStatusBar(1);
     this->Show(true);
-
-    wxGLAttributes dispAttrs;
-    dispAttrs.PlatformDefaults().RGBA().DoubleBuffer().Depth(16).EndList();
-
-    if(wxGLCanvas::IsDisplaySupported(dispAttrs)) std::cout << "Display supported" << std::endl;
-    else std::cout << "Display not supported" << std::endl;
-
-    this->canvas = new testGLCanvas(this, dispAttrs);
 }

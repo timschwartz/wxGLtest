@@ -15,18 +15,13 @@ class MainWindow: public wxFrame
   private:
     void OnExit(wxCommandEvent &event);
     void OnGL(wxCommandEvent &event);
+    void setupGL(wxShowEvent &event);
     wxDECLARE_EVENT_TABLE();
 };
 
 class wxGLtest: public wxApp
 {
   public:
-    wxGLtest();
     virtual bool OnInit();
     MainWindow *frame = nullptr;
-};
-
-enum
-{
-    ID_opengl = 0
 };
