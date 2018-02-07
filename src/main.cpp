@@ -13,7 +13,11 @@ void MainWindow::setupGL(wxShowEvent &event)
     dispAttrs.PlatformDefaults().RGBA().DoubleBuffer().Depth(16).EndList();
 
     if(wxGLCanvas::IsDisplaySupported(dispAttrs)) std::cout << "Display supported" << std::endl;
-    else std::cout << "Display not supported" << std::endl;
+    else 
+    {
+        std::cerr << "Display not supported" << std::endl;
+        Close(true);
+    }
 
     this->canvas = new testGLCanvas(this, dispAttrs);
     this->glc = this->canvas->createContext();
@@ -23,8 +27,8 @@ void MainWindow::setupGL(wxShowEvent &event)
     GLenum err = glewInit();
     if(err != GLEW_OK)
     {
-        std::cout << "Failed to initialize GLEW: " << glewGetErrorString(err) << std::endl;
-        return;
+        std::cerr << "Failed to initialize GLEW: " << glewGetErrorString(err) << std::endl;
+        Close(true);
     }
     std::cout << "GLEW initialized." << std::endl;
 }
